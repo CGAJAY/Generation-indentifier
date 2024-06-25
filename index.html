@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<title>Generation Identifier</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="heading">
+				Generation Finder: Know Your Cohort
+			</h1>
+			<form id="generation-form">
+				<label for="name">Name:</label>
+				<input
+					type="text"
+					id="name"
+					name="name"
+					placeholder="Enter your name"
+					required
+				/>
+
+				<label for="age">Age:</label>
+				<input
+					type="date"
+					name="date"
+					id="date"
+					placeholder="Select a date"
+					required
+				/>
+
+				<button type="submit" id="submit">Submit</button>
+			</form>
+
+			<div id="result"></div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
