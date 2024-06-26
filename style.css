@@ -86,5 +86,6 @@ button:hover {
 	margin-bottom: 10px;
 }
 .gen-img {
-	max-width: 100%;
+	width: 100%;
+	height: 100%;
 }
