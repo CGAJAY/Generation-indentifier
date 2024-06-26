@@ -80,3 +80,11 @@ button:hover {
 	background-color: black;
 	border: none;
 }
+.greet {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.gen-img {
+	max-width: 100%;
+}

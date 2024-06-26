@@ -5,7 +5,6 @@ let generationForm = document.getElementById(
 function getGeneration() {
 	let generation = " ";
 	let birthdate = document.getElementById("date").value;
-	let name = document.getElementById("name").value;
 	const dateObject = new Date(birthdate);
 	const birthYear = parseInt(dateObject.getFullYear());
 	const currentYear = new Date().getFullYear();
@@ -43,43 +42,82 @@ function getGeneration() {
 	return generation;
 }
 
-function render() {
+function getGenerationImage() {
 	let generation = getGeneration();
 	let generationPhoto;
 	switch (true) {
 		case generation === "Generation Alpha":
-			generationPhoto = "generation-Alpha.jpg";
+			generation = `You belong to ${generation}`;
+			generationPhoto = "images/generation-Alpha.webp";
 			break;
 		case generation === "Generation Z":
-			generationPhoto = "generation-z.jpg";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/generation-z.avif";
 			break;
 		case generation === "Millennial":
-			generationPhoto = "millennial.jpg";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/millennial.jpg";
 			break;
 		case generation === "Generation X":
-			generationPhoto = "generation-x.jpg";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/generation-x.jpg";
 			break;
 		case generation === "Baby Boomer":
-			generationPhoto = "baby-boomer.jpg";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/baby-boomer.jpg";
 			break;
 		case generation === "Silent Generation":
-			generationPhoto = "silent-generation.jpg";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/silent-generation.jpg";
 			break;
 		case (generation = "G.I Generation"):
-			generationPhoto = "g-i-eneration";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/g-i-generation.jpg";
 			break;
 		case (generation = "Lost Generation"):
-			generationPhoto = "lost-generation";
+			generation = `You belong to ${generation}`;
+			generationPhoto = ".images/lost-generation.jpg";
 			break;
 		default:
 			generation = "Unknown Generation";
-			generationPhoto = "unknown-generation.jpg";
+			generation = `Ooops that's an ${generation} try again `;
+			generationPhoto = ".images/unknown-generation.jpg";
 			break;
 	}
+
+	console.log(generation);
+	return { gen: generation, photo: generationPhoto };
+}
+
+function render() {
+	let generationObj = getGenerationImage();
+	let container = document.querySelector(".container");
+	let results = document.createElement("div");
+	results.innerHTML = "";
+
+	let generationImageCont = document.createElement("img");
+	let name = document.getElementById("name").value;
+	let nameContainer = document.createElement("h2");
+	nameContainer.classList.add("greet");
+	generationImageCont.classList.add("gen-img");
+
+	generationImageCont.src = "";
+	nameContainer.textContent = "";
+
+	nameContainer.textContent = `Hello ${name} ${generationObj.gen}`;
+	results.appendChild(nameContainer);
+	generationImageCont.src = generationObj.photo;
+	results.appendChild(generationImageCont);
+	container.appendChild(results);
+	// results.innerHTML = "";
+
+	document.getElementById("name").value = "";
+	document.getElementById("name").placeholder =
+		"Enter your name";
+	document.getElementById("date").value = "";
 }
 
 generationForm.addEventListener("submit", () => {
 	event.preventDefault();
 	render();
-	console.log(generation);
 });
