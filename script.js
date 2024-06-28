@@ -55,7 +55,33 @@ let generationsInfo = [
 	},
 ];
 
-// Function to select the right generation according to input
+// Bubble Sort function to sort the array in descending order
+function bubbleSort(arr) {
+	// Get the length of the array
+	let n = arr.length;
+	// Variable to track if any elements were swapped during the iteration
+	let swapped;
+
+	// Perform Bubble Sort
+	do {
+		// Initialize swapped to false at the start of each iteration
+		swapped = false;
+		// Loop through the array from the second element to the end
+		for (let i = 1; i < n; i++) {
+			// Compare the startYear of the current element with the previous element
+			// Swap elements if they are in the wrong order
+			if (arr[i - 1].startYear < arr[i].startYear) {
+				// Swap elements
+				let temp = arr[i - 1]; // Temporary variable to hold the previous element
+				arr[i - 1] = arr[i]; // Move the current element to the previous position
+				arr[i] = temp; // Move the previous element to the current position
+				swapped = true; // Set swapped to true to indicate that a swap occurred
+			}
+		}
+		n--; // Reduce the range of comparison as the largest element is bubbled to the end
+	} while (swapped); // Continue looping until no swaps are made during an iteration
+}
+
 function showGeneration() {
 	// Grabbed the date input
 	const dateInput = document.getElementById("date");
@@ -63,12 +89,31 @@ function showGeneration() {
 	const birthdate = new Date(dateInput.value);
 	// extracting the year component from a Date object
 	const year = birthdate.getFullYear();
-	// finding the specific generation object within an array of generationsInfo based on the provided year
-	const generation = generationsInfo.find(
-		(gen) => year >= gen.startYear && year <= gen.endYear
-	);
-	// Outputting the specific generation
-	return generation;
+
+	let low = 0;
+	let high = generationsInfo.length - 1;
+
+	// Sort the generationsInfo array
+	bubbleSort(generationsInfo);
+
+	console.time();
+	while (low <= high) {
+		let mid = Math.floor((low + high) / 2);
+		console.log(generationsInfo[mid]);
+		if (
+			year >= generationsInfo[mid].startYear &&
+			year <= generationsInfo[mid].endYear
+		) {
+			console.timeEnd();
+			return generationsInfo[mid];
+		} else if (year > generationsInfo[mid].startYear) {
+			high = mid - 1;
+		} else {
+			low = mid + 1;
+		}
+	}
+
+	return "Unknown Generation";
 }
 
 function render() {
@@ -116,10 +161,8 @@ function render() {
 	// Clear the value of the date input field
 	dateInput.value = "";
 }
-// Add an event listener for the 'submit' event on the form
+
 generationForm.addEventListener("submit", () => {
-	// Prevent the default form submission behavior
 	event.preventDefault();
-	// Call the render function to handle the form submission logic
 	render();
 });
